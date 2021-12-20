@@ -1,4 +1,11 @@
-import { useEffect, createElement, FC, Fragment } from "react"
+import {
+	FC,
+	Fragment,
+	useEffect,
+	useContext,
+	createElement,
+	createContext,
+} from "react"
 
 const setMetaTag =
 	(type: string, text: string) =>
@@ -7,8 +14,8 @@ const setMetaTag =
 			.setAttribute("content", text)
 
 const setMetadata =
-	(title: string) => {
-		const text = `${title} - ${process.env.TITLE!}`
+	(appTitle: string, title: string) => {
+		const text = `${title} - ${appTitle}`
 		document.title = text
 		setMetaTag("keywords", text)
 		setMetaTag("og:title", text)
@@ -16,17 +23,31 @@ const setMetadata =
 		setMetaTag("og:description", text)
 	}
 
-const Metadata: FC<PropTypes> = ({ title, children }) => {
+interface Context {
+	appTitle: string,
+}
+
+const MetadataContext =
+	createContext<Context>({ appTitle: "" })
+
+export const MetadataProvider =
+	MetadataContext.Provider
+
+export const Metadata: FC<MetadataPropTypes> = ({ title, children }) => {
+	const { appTitle } = useContext(MetadataContext)
+
 	useEffect(() => {
 		if (title) {
-			setMetadata(title)
+			setMetadata(appTitle, title)
 		}
 	}, [title])
-	return <Fragment>{children}</Fragment>
+	return (
+		<Fragment>
+			{children}
+		</Fragment>
+	)
 }
 
-interface PropTypes {
+export interface MetadataPropTypes {
 	title: string,
 }
-
-export default Metadata
