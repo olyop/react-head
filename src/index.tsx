@@ -71,9 +71,7 @@ export const MetadataProvider: FC<MetadataProviderPropTypes> =
 	}
 
 export interface MetadataProviderPropTypes
-	extends AppTitle {
-	parseTitle?: ParseTitleFunction,
-}
+	extends AppTitle, Partial<ParseTitleOptions> {}
 
 export const Metadata: FC<MetadataPropTypes> =
 	({ title, children }) => {
