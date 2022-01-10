@@ -1,11 +1,11 @@
 {
 	"extends": "./tsconfig.json",
 	"include": [
-		"src"
+		"src",
+		"rollup.config.ts"
 	],
 	"exclude": [
 		"build",
-		"node_modules",
-		"rollup.config.js"
+		"node_modules"
 	]
 }
