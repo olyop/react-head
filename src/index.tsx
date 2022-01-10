@@ -79,13 +79,17 @@ export const Metadata: FC<MetadataPropTypes> =
 			useContext(MetadataContext)
 
 		useEffect(() => {
-			setMetadata({
-				parseTitle,
-				metadata: {
-					appTitle,
-					pageTitle: title,
-				},
-			})
+			if (title) {
+				setMetadata({
+					parseTitle,
+					metadata: {
+						appTitle,
+						pageTitle: title,
+					},
+				})
+			} else {
+				document.title = appTitle
+			}
 		}, [title])
 
 		return (
@@ -96,5 +100,5 @@ export const Metadata: FC<MetadataPropTypes> =
 	}
 
 export interface MetadataPropTypes {
-	title: string,
+	title?: string,
 }
