@@ -6,6 +6,7 @@ import {
 	useContext,
 	createElement,
 	createContext,
+	PropsWithChildren,
 } from "react"
 
 const setMetaTag =
@@ -58,9 +59,12 @@ const setMetadata =
 	}
 
 const MetadataContext =
-	createContext<Context>({ appTitle: "", parseTitle: defaultParseTitleFunction })
+	createContext<Context>({
+		appTitle: "",
+		parseTitle: defaultParseTitleFunction,
+	})
 
-export const MetadataProvider: FC<MetadataProviderPropTypes> =
+export const MetadataProvider: FC<PropsWithChildren<MetadataProviderPropTypes>> =
 	({ children, appTitle, parseTitle = defaultParseTitleFunction }) => {
 		const value = useMemo<Context>(() => ({ appTitle, parseTitle }), [])
 		return (
@@ -99,6 +103,9 @@ export const Metadata: FC<MetadataPropTypes> =
 		)
 	}
 
-export interface MetadataPropTypes {
+export interface MetadataTitlePropTypes {
 	title?: string,
 }
+
+export type MetadataPropTypes =
+	PropsWithChildren<MetadataTitlePropTypes>
