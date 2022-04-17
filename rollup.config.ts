@@ -11,7 +11,7 @@ const options: RollupOptions = {
 		file: "build/index.js",
 	}],
 	acornInjectPlugins: [
-		jsx(),
+		jsx() as () => unknown,
 	],
 	plugins: [
 		typescript({

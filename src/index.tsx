@@ -11,8 +11,7 @@ import {
 
 const setMetaTag =
 	(type: string, text: Parameters<Element["setAttribute"]>[1]) => {
-		const element =
-			document.querySelector<HTMLElement>(`meta[name="${type}"]`)
+		const element = document.querySelector<HTMLElement>(`meta[name="${type}"]`)
 		if (element) {
 			element.setAttribute("content", text)
 		}
