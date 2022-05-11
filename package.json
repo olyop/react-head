@@ -1,19 +1,19 @@
 {
 	"types": "build",
 	"license": "MIT",
-	"version": "3.1.0",
+	"version": "1.0.0",
 	"main": "build/index.js",
-	"name": "@oly_op/react-metadata",
-	"description": "@oly_op/react-metadata",
-	"bugs": "https://github.com/olyop/react-metadata/issues",
-	"homepage": "https://github.com/olyop/react-metadata/blob/master/README.md",
+	"name": "@oly_op/react-head",
+	"description": "@oly_op/react-head",
+	"bugs": "https://github.com/olyop/react-head/issues",
+	"homepage": "https://github.com/olyop/react-head/blob/master/README.md",
 	"author": {
 		"name": "Oliver Plummer",
 		"email": "oliver.plummer@outlook.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/olyop/react-metadata.git"
+		"url": "https://github.com/olyop/react-head.git"
 	},
 	"files": [
 		"build"
@@ -58,7 +58,7 @@
 		"typescript": "4.6.4"
 	},
 	"peerDependencies": {
-		"react": "17 || 18",
-		"react-dom": "17 || 18"
+		"react": "18",
+		"react-dom": "18"
 	}
 }

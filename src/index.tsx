@@ -5,95 +5,39 @@ import {
 	useEffect,
 	useContext,
 	createElement,
-	createContext,
-	PropsWithChildren,
 } from "react"
 
-const setMetaTag =
-	(type: string, text: Parameters<Element["setAttribute"]>[1]) => {
-		const element = document.querySelector<HTMLElement>(`meta[name="${type}"]`)
-		if (element) {
-			element.setAttribute("content", text)
-		}
-	}
+import {
+	PropTypes,
+	Configuration,
+	ProviderPropTypes,
+	OnPageTitleChange,
+	ParseTitleFunction,
+	ParseTitleFunctionOptions,
+} from "./types"
 
-interface AppTitle {
-	appTitle: string,
-}
+import setHead from "./set-head"
+import ConfigurationContext from "./configuration-context"
+import defaultParseTitleFunction from "./default-parse-title-function"
 
-interface PageTitle {
-	pageTitle: string,
-}
-
-interface MetadataOptions
-	extends AppTitle, PageTitle {}
-
-export type ParseTitleFunction =
-	(parseOptions: MetadataOptions) => string
-
-interface ParseTitleOptions {
-	parseTitle: ParseTitleFunction,
-}
-
-interface SetMetadataOptions
-	extends ParseTitleOptions {
-	metadata: MetadataOptions,
-}
-
-export interface Context
-	extends ParseTitleOptions, AppTitle {}
-
-const defaultParseTitleFunction: ParseTitleFunction =
-	({ appTitle, pageTitle }) =>
-		`${pageTitle} - ${appTitle}`
-
-const setMetadata =
-	({ parseTitle, metadata }: SetMetadataOptions) => {
-		const title = parseTitle(metadata)
-		document.title = title
-		setMetaTag("keywords", title)
-		setMetaTag("og:title", title)
-		setMetaTag("description", title)
-		setMetaTag("og:description", title)
-	}
-
-const MetadataContext =
-	createContext<Context>({
-		appTitle: "",
-		parseTitle: defaultParseTitleFunction,
-	})
-
-export const MetadataProvider: FC<PropsWithChildren<MetadataProviderPropTypes>> =
-	({ children, appTitle, parseTitle = defaultParseTitleFunction }) => {
-		const value = useMemo<Context>(() => ({ appTitle, parseTitle }), [])
+export const HeadProvider: FC<ProviderPropTypes> =
+	({ children, configuration }) => {
+		const memoizedConfiguration = useMemo<Configuration>(() => configuration, [])
 		return (
-			<MetadataContext.Provider value={value}>
+			<ConfigurationContext.Provider value={memoizedConfiguration}>
 				{children}
-			</MetadataContext.Provider>
+			</ConfigurationContext.Provider>
 		)
 	}
 
-export interface MetadataProviderPropTypes
-	extends AppTitle, Partial<ParseTitleOptions> {}
-
-export const Metadata: FC<MetadataPropTypes> =
-	({ title, children }) => {
-		const { appTitle, parseTitle } =
-			useContext(MetadataContext)
+export const Head: FC<PropTypes> =
+	({ pageTitle, children }) => {
+		const configuration = useContext(ConfigurationContext)
 
 		useEffect(() => {
-			if (title) {
-				setMetadata({
-					parseTitle,
-					metadata: {
-						appTitle,
-						pageTitle: title,
-					},
-				})
-			} else {
-				document.title = appTitle
-			}
-		}, [title])
+			setHead({ pageTitle, configuration })
+			configuration.onPageTitleChange(({ pageTitle }))
+		}, [pageTitle])
 
 		return (
 			<Fragment>
@@ -102,9 +46,15 @@ export const Metadata: FC<MetadataPropTypes> =
 		)
 	}
 
-export interface MetadataTitlePropTypes {
-	title?: string,
-}
+export {
+	defaultParseTitleFunction,
 
-export type MetadataPropTypes =
-	PropsWithChildren<MetadataTitlePropTypes>
+	Configuration as HeadConfiguration,
+	OnPageTitleChange as HeadOnPageTitleChange,
+
+	ParseTitleFunction as HeadParseTitleFunction,
+	ParseTitleFunctionOptions as HeadParseTitleFunctionOptions,
+
+	PropTypes as HeadPropTypes,
+	ProviderPropTypes as HeadProviderPropTypes,
+}
