@@ -44,7 +44,7 @@ export const Head: FC<PropTypes> =
 
 		useEffect(() => () => {
 			setHead({ configuration })({ pageTitle: null })
-		}, [])
+		})
 
 		return (
 			<Fragment>
