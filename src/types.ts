@@ -5,7 +5,7 @@ export interface TitleOptions {
 }
 
 export interface PageTitleOptions {
-	pageTitle: string,
+	pageTitle: string | null,
 }
 
 export type OnPageTitleChange =
@@ -27,11 +27,6 @@ export interface Configuration
 export interface ConfigurationOptions {
 	configuration: Configuration,
 }
-
-export interface SetOptions
-	extends
-	PageTitleOptions,
-	ConfigurationOptions {}
 
 export type ProviderPropTypes =
 	PropsWithChildren<ConfigurationOptions>

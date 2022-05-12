@@ -1,4 +1,4 @@
-import { SetOptions } from "./types"
+import { ConfigurationOptions, PageTitleOptions } from "./types"
 
 const setDocumentTitle =
 	(value: string) => {
@@ -14,18 +14,15 @@ const setMetaTag =
 	}
 
 const setHead =
-	({ pageTitle, configuration }: SetOptions) => {
-		const { title, description, parseTitle } = configuration
-
-		const titleParsed =
-			parseTitle({ title, pageTitle })
-
-		setDocumentTitle(titleParsed)
-
-		setMetaTag("keywords", titleParsed)
-		setMetaTag("og:title", titleParsed)
-		setMetaTag("description", description)
-		setMetaTag("og:description", description)
-	}
+	({ configuration }: ConfigurationOptions) =>
+		({ pageTitle }: PageTitleOptions) => {
+			const { title, description, parseTitle } = configuration
+			const titleParsed = parseTitle({ title, pageTitle })
+			setDocumentTitle(titleParsed)
+			setMetaTag("keywords", titleParsed)
+			setMetaTag("og:title", titleParsed)
+			setMetaTag("description", description)
+			setMetaTag("og:description", description)
+		}
 
 export default setHead

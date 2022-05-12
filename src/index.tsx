@@ -38,8 +38,11 @@ export const Head: FC<PropTypes> =
 		const configuration = useContext(ConfigurationContext)
 
 		useEffect(() => {
-			setHead({ pageTitle, configuration })
+			setHead({ configuration })({ pageTitle })
 			configuration.onPageTitleChange(({ pageTitle }))
+			return () => {
+				setHead({ configuration })({ pageTitle: null })
+			}
 		}, [pageTitle])
 
 		return (
