@@ -1,4 +1,4 @@
-import { ConfigurationOptions, PageTitleOptions } from "./types"
+import { Configuration, PageTitleOptions } from "./types"
 
 const setDocumentTitle =
 	(value: string) => {
@@ -14,7 +14,7 @@ const setMetaTag =
 	}
 
 const setHead =
-	({ configuration }: ConfigurationOptions) =>
+	(configuration: Configuration) =>
 		({ pageTitle }: PageTitleOptions) => {
 			const { title, description, parseTitle } = configuration
 			const titleParsed = parseTitle({ title, pageTitle })
