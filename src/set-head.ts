@@ -1,7 +1,12 @@
 import { SetOptions } from "./types"
 
+const setDocumentTitle =
+	(value: string) => {
+		document.title = value
+	}
+
 const setMetaTag =
-	(type: string, value: string) => {
+	(type: string, value: Parameters<HTMLElement["setAttribute"]>[1]) => {
 		const element = document.querySelector<HTMLElement>(`meta[name="${type}"]`)
 		if (element) {
 			element.setAttribute("content", value)
@@ -9,9 +14,14 @@ const setMetaTag =
 	}
 
 const setHead =
-	({ pageTitle, configuration: { title, description, parseTitle } }: SetOptions) => {
-		const titleParsed = parseTitle({ title, pageTitle })
-		document.title = title
+	({ pageTitle, configuration }: SetOptions) => {
+		const { title, description, parseTitle } = configuration
+
+		const titleParsed =
+			parseTitle({ title, pageTitle })
+
+		setDocumentTitle(titleParsed)
+
 		setMetaTag("keywords", titleParsed)
 		setMetaTag("og:title", titleParsed)
 		setMetaTag("description", description)
