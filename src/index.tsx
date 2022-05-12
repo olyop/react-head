@@ -9,10 +9,13 @@ import {
 
 import {
 	PropTypes,
+	TitleOptions,
 	Configuration,
+	PageTitleOptions,
 	ProviderPropTypes,
 	OnPageTitleChange,
 	ParseTitleFunction,
+	ConfigurationOptions,
 	ParseTitleFunctionOptions,
 } from "./types"
 
@@ -49,8 +52,11 @@ export const Head: FC<PropTypes> =
 export {
 	defaultParseTitleFunction,
 
+	TitleOptions as HeadTitleOptions,
 	Configuration as HeadConfiguration,
+	PageTitleOptions as HeadPageTitleOptions,
 	OnPageTitleChange as HeadOnPageTitleChange,
+	ConfigurationOptions as HeadConfigurationOptions,
 
 	ParseTitleFunction as HeadParseTitleFunction,
 	ParseTitleFunctionOptions as HeadParseTitleFunctionOptions,

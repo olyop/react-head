@@ -1,10 +1,10 @@
 import { PropsWithChildren } from "react"
 
-interface TitleOptions {
+export interface TitleOptions {
 	title: string,
 }
 
-interface PageTitleOptions {
+export interface PageTitleOptions {
 	pageTitle: string,
 }
 
@@ -24,7 +24,7 @@ export interface Configuration
 	onPageTitleChange: OnPageTitleChange,
 }
 
-interface ConfigurationOptions {
+export interface ConfigurationOptions {
 	configuration: Configuration,
 }
 
