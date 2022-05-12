@@ -4,8 +4,11 @@ export interface TitleOptions {
 	title: string,
 }
 
+export type PageTitle =
+	string | null
+
 export interface PageTitleOptions {
-	pageTitle: string | null,
+	pageTitle: PageTitle,
 }
 
 export type OnPageTitleChange =

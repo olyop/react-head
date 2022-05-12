@@ -9,6 +9,7 @@ import {
 
 import {
 	PropTypes,
+	PageTitle,
 	TitleOptions,
 	Configuration,
 	PageTitleOptions,
@@ -56,6 +57,7 @@ export const Head: FC<PropTypes> =
 export {
 	defaultParseTitleFunction,
 
+	PageTitle as HeadPageTitle,
 	TitleOptions as HeadTitleOptions,
 	Configuration as HeadConfiguration,
 	PageTitleOptions as HeadPageTitleOptions,
