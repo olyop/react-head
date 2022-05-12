@@ -40,10 +40,11 @@ export const Head: FC<PropTypes> =
 		useEffect(() => {
 			setHead({ configuration })({ pageTitle })
 			configuration.onPageTitleChange(({ pageTitle }))
-			return () => {
-				setHead({ configuration })({ pageTitle: null })
-			}
 		}, [pageTitle])
+
+		useEffect(() => () => {
+			setHead({ configuration })({ pageTitle: null })
+		}, [])
 
 		return (
 			<Fragment>
